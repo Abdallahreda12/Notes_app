@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-
 import 'custom_appbar.dart';
+import 'custom_note_item.dart';
 
 class NotesNiewBody extends StatelessWidget {
   const NotesNiewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 18,
         ),
-        CustomAppBar()
+        const CustomAppBar(),
+        const SizedBox(
+          height: 10,
+        ),
+        NoteItem()
       ],
     );
   }
