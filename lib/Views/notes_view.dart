@@ -9,6 +9,7 @@ class NotesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -18,7 +19,7 @@ class NotesView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16)),
               context: context,
               builder: (context) {
-                return const addNoteBottomSheet();
+                return addNoteBottomSheet();
               });
         },
       ),
