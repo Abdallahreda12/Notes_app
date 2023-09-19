@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 part 'noteModel.g.dart';
 
 @HiveType(typeId: 0)
-class noteModel {
+class NoteModel {
   @HiveField(0)
   final String title;
   @HiveField(1)
@@ -13,7 +13,7 @@ class noteModel {
   @HiveField(3)
   final int color;
 
-  noteModel(
+  NoteModel(
       {required this.title,
       required this.subtitle,
       required this.date,

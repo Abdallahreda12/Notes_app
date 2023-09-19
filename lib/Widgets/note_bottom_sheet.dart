@@ -1,66 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/constants.dart';
-
+import 'custom_button.dart';
 import 'custom_text_field.dart';
 
 // ignore: camel_case_types
 class addNoteBottomSheet extends StatelessWidget {
-  addNoteBottomSheet({super.key});
+  const addNoteBottomSheet({super.key});
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 14,
-            ),
-            customTextField(
-              hintText: "Title",
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            customTextField(
-              hintText: "Content",
-              maxLines: 4,
-            ),
-            const SizedBox(
-              height: 120,
-            ),
-            const customButton()
-          ],
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: AddNoteForm(),
       ),
     );
   }
 }
 
-class customButton extends StatelessWidget {
-  const customButton({super.key});
+class AddNoteForm extends StatefulWidget {
+  const AddNoteForm({
+    super.key,
+  });
 
   @override
+  State<AddNoteForm> createState() => _AddNoteFormState();
+}
+
+class _AddNoteFormState extends State<AddNoteForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  final AutovalidateMode autovalidateMode = AutovalidateMode.always;
+  String? title;
+  String? subtitle;
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 55,
-        decoration: BoxDecoration(
-          color: kPrimaryColor,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: const Center(
-          child: Text(
-            "Add",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                letterSpacing: 1),
+    return Form(
+      key: _formKey,
+      autovalidateMode: autovalidateMode,
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 14,
           ),
-        ),
+          customTextField(
+            onSaved: (p0) {
+              title = p0;
+            },
+            hintText: "Title",
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          customTextField(
+            onSaved: (p0) {
+              subtitle = p0;
+            },
+            hintText: "Content",
+            maxLines: 4,
+          ),
+          const SizedBox(
+            height: 120,
+          ),
+          CustomButton(
+            onTap: () {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                setState(() {});
+              }
+            },
+          )
+        ],
       ),
     );
   }

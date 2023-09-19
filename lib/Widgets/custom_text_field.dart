@@ -3,13 +3,23 @@ import 'package:notes_app/constants.dart';
 
 // ignore: camel_case_types, must_be_immutable
 class customTextField extends StatelessWidget {
-  customTextField({super.key, this.hintText, this.maxLines = 1});
+  customTextField({super.key, this.hintText, this.maxLines = 1, this.onSaved});
 
   String? hintText;
   int? maxLines;
+
+  final void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      onSaved: onSaved,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "please enter some text";
+        } else {
+          return null;
+        }
+      },
       cursorColor: kPrimaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(

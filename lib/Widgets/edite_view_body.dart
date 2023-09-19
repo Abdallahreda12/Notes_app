@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/Widgets/custom_appbar.dart';
 import 'package:notes_app/Widgets/custom_text_field.dart';
 
-class editeNoteViewBody extends StatelessWidget {
-  const editeNoteViewBody({super.key});
+class EditeNoteViewBody extends StatelessWidget {
+  const EditeNoteViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
