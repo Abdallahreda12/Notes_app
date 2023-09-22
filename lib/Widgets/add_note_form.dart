@@ -18,7 +18,7 @@ class AddNoteForm extends StatefulWidget {
 class _AddNoteFormState extends State<AddNoteForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  final AutovalidateMode autovalidateMode = AutovalidateMode.always;
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title;
   String? subtitle;
   @override
@@ -48,25 +48,31 @@ class _AddNoteFormState extends State<AddNoteForm> {
             maxLines: 4,
           ),
           const SizedBox(
-            height: 120,
+            height: 40,
           ),
           BlocBuilder<AddNoteCubit, AddNoteCubitState>(
             builder: (context, state) {
-              return CustomButton(
-                isLoading: state is AddNoteCubitLoading,
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    var note = NoteModel(
-                        title: title!,
-                        subtitle: subtitle!,
-                        date: DateTime.now().toString(),
-                        color: Colors.blue.value);
-                    BlocProvider.of<AddNoteCubit>(context).addNote(note);
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: CustomButton(
+                  isLoading: state is AddNoteCubitLoading,
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      var note = NoteModel(
+                          title: title!,
+                          subtitle: subtitle!,
+                          date: DateTime.now().toString(),
+                          color: Colors.blue.value);
+                      BlocProvider.of<AddNoteCubit>(context).addNote(note);
 
-                    setState(() {});
-                  }
-                },
+                      setState(() {});
+                    } else {
+                      autovalidateMode = AutovalidateMode.always;
+                      setState(() {});
+                    }
+                  },
+                ),
               );
             },
           )
