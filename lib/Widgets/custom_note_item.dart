@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/Views/edit_note_view.dart';
+import 'package:notes_app/models/noteModel.dart';
 
 // ignore: must_be_immutable
 class NoteItem extends StatelessWidget {
-  NoteItem({super.key});
+  NoteItem({super.key, this.note});
 
+  NoteModel? note;
   DateTime dataNow = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -18,8 +21,7 @@ class NoteItem extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-            color: const Color(0xffffcc80),
-            borderRadius: BorderRadius.circular(16)),
+            color: Color(note!.color), borderRadius: BorderRadius.circular(16)),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
@@ -27,9 +29,9 @@ class NoteItem extends StatelessWidget {
             children: [
               ListTile(
                 contentPadding: const EdgeInsets.all(0),
-                title: const Text(
-                  "Flutter Tips",
-                  style: TextStyle(
+                title: Text(
+                  note!.title,
+                  style: const TextStyle(
                     fontSize: 25,
                     color: Colors.black,
                   ),
@@ -37,7 +39,7 @@ class NoteItem extends StatelessWidget {
                 subtitle: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    "Built your carrer with Abdallah Reda ",
+                    note!.subtitle,
                     style: TextStyle(
                         fontSize: 18, color: Colors.black.withOpacity(0.5)),
                   ),
@@ -48,7 +50,7 @@ class NoteItem extends StatelessWidget {
                     color: Colors.black),
               ),
               Text(
-                '${dataNow.month}/${dataNow.day}/${dataNow.year}',
+                note!.date,
                 style: TextStyle(
                     fontSize: 14, color: Colors.black.withOpacity(0.8)),
               )

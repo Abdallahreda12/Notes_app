@@ -62,10 +62,10 @@ class _AddNoteFormState extends State<AddNoteForm> {
                       var note = NoteModel(
                           title: title!,
                           subtitle: subtitle!,
-                          date: DateTime.now().toString(),
+                          date:
+                              "${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day} ${DateTime.now().hour}:${DateTime.now().minute}",
                           color: Colors.blue.value);
                       BlocProvider.of<AddNoteCubit>(context).addNote(note);
-
                       setState(() {});
                     } else {
                       autovalidateMode = AutovalidateMode.always;
