@@ -5,10 +5,9 @@ import 'package:notes_app/models/noteModel.dart';
 
 // ignore: must_be_immutable
 class NoteItem extends StatelessWidget {
-  NoteItem({super.key, this.note});
+  const NoteItem({super.key, required this.note});
 
-  NoteModel? note;
-  DateTime dataNow = DateTime.now();
+  final NoteModel note;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class NoteItem extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
-            color: Color(note!.color), borderRadius: BorderRadius.circular(16)),
+            color: Color(note.color), borderRadius: BorderRadius.circular(16)),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
@@ -30,7 +29,7 @@ class NoteItem extends StatelessWidget {
               ListTile(
                 contentPadding: const EdgeInsets.all(0),
                 title: Text(
-                  note!.title,
+                  note.title,
                   style: const TextStyle(
                     fontSize: 25,
                     color: Colors.black,
@@ -39,18 +38,20 @@ class NoteItem extends StatelessWidget {
                 subtitle: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    note!.subtitle,
+                    note.subtitle,
                     style: TextStyle(
                         fontSize: 18, color: Colors.black.withOpacity(0.5)),
                   ),
                 ),
                 trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      note.delete();
+                    },
                     icon: const Icon(FontAwesomeIcons.trash),
                     color: Colors.black),
               ),
               Text(
-                note!.date,
+                note.date,
                 style: TextStyle(
                     fontSize: 14, color: Colors.black.withOpacity(0.8)),
               )
