@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:notes_app/add-note_cubit/add_note_cubit.dart';
 import 'package:notes_app/models/noteModel.dart';
 
+import 'color_list_view.dart';
 import 'custom_Button.dart';
 import 'custom_text_field.dart';
 
@@ -22,6 +23,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title;
   String? subtitle;
+  MaterialColor? color;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -49,7 +51,13 @@ class _AddNoteFormState extends State<AddNoteForm> {
             maxLines: 4,
           ),
           const SizedBox(
-            height: 40,
+            height: 15,
+          ),
+          ColorsListView(
+            ColorsData: (val) => color = val,
+          ),
+          const SizedBox(
+            height: 15,
           ),
           BlocBuilder<AddNoteCubit, AddNoteCubitState>(
             builder: (context, state) {
@@ -67,7 +75,8 @@ class _AddNoteFormState extends State<AddNoteForm> {
                           title: title!,
                           subtitle: subtitle!,
                           date: formatCurrentDate,
-                          color: Colors.blue.value);
+                          color:
+                              color == null ? Colors.blue.value : color!.value);
                       BlocProvider.of<AddNoteCubit>(context).addNote(note);
                       setState(() {});
                     } else {
