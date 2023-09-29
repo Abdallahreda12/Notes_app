@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 typedef void MyCallback(MaterialColor val);
-int currentIndex = 0;
 
 class ColorsListView extends StatefulWidget {
-  const ColorsListView({super.key, required this.ColorsData});
+  // ignore: non_constant_identifier_names
+  ColorsListView({super.key, required this.ColorsData});
   // ignore: non_constant_identifier_names
   final MyCallback ColorsData;
+  int currentIndex = -1;
 
   @override
   State<ColorsListView> createState() => _ColorsListViewState();
@@ -38,10 +39,10 @@ class _ColorsListViewState extends State<ColorsListView> {
             child: GestureDetector(
               onTap: () {
                 widget.ColorsData(ListColors[index]);
-                currentIndex = index;
+                widget.currentIndex = index;
                 setState(() {});
               },
-              child: currentIndex == index
+              child: widget.currentIndex == index
                   ? Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
